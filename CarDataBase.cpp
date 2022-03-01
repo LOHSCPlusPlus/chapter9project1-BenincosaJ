@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
+//This is that CarType Struct
 struct CarType{
     enum {MAX_CHAR_LEN=100};
     char carName[MAX_CHAR_LEN];
@@ -16,7 +16,7 @@ struct CarType{
     bool isValid; 
     CarType();
 };
-
+//This is the default constructor, cars are automatically not valid unless altered
 CarType::CarType() {
     for (int index = 0; index < MAX_CHAR_LEN; index++){
       carName[index]= '\0';
@@ -35,6 +35,7 @@ CarType::CarType() {
 }
 
 const int MAX_CARS=500;
+//reads the car file
 CarType readCar(ifstream &inFile){
     CarType car; 
     inFile.get(car.carName, CarType::MAX_CHAR_LEN, ';');
@@ -58,7 +59,7 @@ CarType readCar(ifstream &inFile){
     car.isValid = !inFile.eof();
     return car;
 }
-
+//fills an array with all of the cars
 int readCarData(CarType carArray[]) {
     ifstream carFile("cars.txt");
     int numCars = 0;
@@ -68,6 +69,7 @@ int readCarData(CarType carArray[]) {
     }
     return numCars;
 }
+//reads user input to make sure it's a valid integer
 int readInt(const char prompt[]){
     int temp = 0;
     cout << prompt;
@@ -81,7 +83,7 @@ int readInt(const char prompt[]){
     }
     return temp;
 }
-
+//reads user input to make sure it's a valid double
 double readDouble(const char prompt[]){
     double temp = 0;
     cout << prompt;
@@ -95,7 +97,7 @@ double readDouble(const char prompt[]){
     }
     return temp;
 }
-
+//prints all cars
 void printCars(CarType carArray[]){
   for (int index = 0; index < MAX_CARS; index++){
     bool valid = carArray[index].isValid;
@@ -106,7 +108,7 @@ void printCars(CarType carArray[]){
   }
 }
 
-
+//prints cars with specific origins
 void printCarsByOrigin(CarType carArray[], string origin){
   CarType newCarArray[500];
   for (int index = 0; index < MAX_CARS; index++){
@@ -118,7 +120,7 @@ void printCarsByOrigin(CarType carArray[], string origin){
   printCars(newCarArray);
 }
 
-
+//allows user to remove a car
 void removeCar(CarType carArray[]){
   int indexToRemove = readInt("enter an index to remove: ");
   if(indexToRemove < MAX_CARS && carArray[indexToRemove].isValid){
@@ -126,8 +128,7 @@ void removeCar(CarType carArray[]){
   }
 }
 
-
-
+//allows user to add a car and input all of the specifics of said car
 void addCar(CarType carArray[]){
   int index = 0;
   while(index < MAX_CARS && carArray[index].isValid){
@@ -152,11 +153,11 @@ void addCar(CarType carArray[]){
     cin.getline(carArray[index].origin, MAX_CARS);
   }
 }
-
+//allows user to select what they would like to do
 void displayMenu(CarType carArray[]){
   int userInput = 0;
-  while (userInput != 5){
-    userInput = readInt("enter the number of the option you wish to choose:\n(1) Display the car list\n(2) Remove a car from the list\n(3) Add a car to the list\n(4) display cars by origin\n(5) quit");
+  while (userInput != 7){
+    userInput = readInt("enter the number of the option you wish to choose:\n(1) print cars\n(2) Remove a car from the list\n(3) Add a car to the list\n(4) display cars by origin\n(5) quit");
     if (userInput == 1){
       printCars(carArray);
     }
@@ -177,6 +178,8 @@ void displayMenu(CarType carArray[]){
     }
   }
 }
+
+//main
 int main() {
     CarType carArray[500];
     readCarData(carArray);
