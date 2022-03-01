@@ -71,17 +71,17 @@ int readCarData(CarType carArray[]) {
 }
 //reads user input to make sure it's a valid integer
 int readInt(const char prompt[]){
-    int temp = 0;
+    int temporary = 0;
     cout << prompt;
-    cin >> temp;
+    cin >> temporary;
     while (!cin) {
         cin.clear();
         cin.ignore(1000,'\n');
         cout << "Invalid Data!" << endl;
         cout << prompt;
-        cin >> temp;    
+        cin >> temporary;    
     }
-    return temp;
+    return temporary;
 }
 //reads user input to make sure it's a valid double
 double readDouble(const char prompt[]){
@@ -156,7 +156,7 @@ void addCar(CarType carArray[]){
 //allows user to select what they would like to do
 void displayMenu(CarType carArray[]){
   int userInput = 0;
-  while (userInput != 7){
+  while (userInput != 5){
     userInput = readInt("enter the number of the option you wish to choose:\n(1) print cars\n(2) Remove a car from the list\n(3) Add a car to the list\n(4) display cars by origin\n(5) quit");
     if (userInput == 1){
       printCars(carArray);
